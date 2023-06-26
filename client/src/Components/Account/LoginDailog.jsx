@@ -3,6 +3,7 @@ import { Dialog, Box, styled, Typography, List, ListItem } from '@mui/material'
 import { qrCodeImage } from '../Constants/data'
 import { GoogleLogin } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
+import { useAccountContext } from '../Context/AccountProvider'
 
 const Component = styled(Box)`
 display:flex;
@@ -43,9 +44,10 @@ const dailogStyle = {
 }
 
 const LoginDailog = () => {
+  const { setAccount } = useAccountContext();
   const onLoginSuccess = (res) => {
     const decodedInfo = jwt_decode(res?.credential)
-    console.log(decodedInfo);
+    setAccount(decodedInfo);
   }
   const onLoginError = (res) => { console.log(res); }
 
@@ -53,6 +55,7 @@ const LoginDailog = () => {
     <Dialog
       open={true}
       PaperProps={{ sx: dailogStyle }}
+      hideBackdrop={true}
     >
       <Component>
         <Container>
