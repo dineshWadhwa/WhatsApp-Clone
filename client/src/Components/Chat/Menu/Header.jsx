@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAccountContext } from '../../Context/AccountProvider';
 import { Box } from '@mui/material';
 import { Chat } from "@mui/icons-material";
 import styled from '@emotion/styled';
 import HeaderMenu from './HeaderMenu';
+import InfoDrawer from '../../Drawer/InfoDrawer';
 
 const Component = styled(Box)`
 height: 40px;
@@ -33,14 +34,18 @@ const Image = styled('img')({
 
 const Header = () => {
   const { account } = useAccountContext();
+  const [openDrawer, setOpenDrawer] = useState(false)
   return (
-    <Component>
-      <Image src={account?.picture} alt='profile-pic' />
-      <Wrapper>
-        <Chat />
-        <HeaderMenu />
-      </Wrapper>
-    </Component>
+    <>
+      <Component>
+        <Image src={account?.picture} alt='profile-pic'onClick={()=>setOpenDrawer(true)} />
+        <Wrapper>
+          <Chat />
+          <HeaderMenu setOpenDrawer={setOpenDrawer}/>
+        </Wrapper>
+      </Component>
+      <InfoDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+    </>
   )
 }
 
