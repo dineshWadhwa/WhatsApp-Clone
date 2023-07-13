@@ -6,7 +6,7 @@ const USERNAME = process.env.DB_USERNAME
 const PASSWORD = process.env.DB_PASSWORD
 
 const Connection = async () => {
-  const URL = `mongodb+srv://${USERNAME}:${PASSWORD}@whatspp-clone.0pxuqsz.mongodb.net/?retryWrites=true&w=majorityf/dinesh`
+  const URL = `mongodb+srv://${USERNAME}:${PASSWORD}@whatspp-clone.0pxuqsz.mongodb.net/?retryWrites=true&w=majority`
   try {
     await mongoose.connect(URL, { useUnifiedTopology: true })
     console.log('DataBAse connexted succesfully');

@@ -1,5 +1,7 @@
 import { Box, Typography, styled } from '@mui/material';
 import React from 'react'
+import { useAccountContext } from '../../Context/AccountProvider';
+import { setConversation } from '../../../service/api';
 
 const Component = styled(Box)`
     height: 45px;
@@ -7,8 +9,8 @@ const Component = styled(Box)`
     padding: 13px 0;
     cursor: pointer;
 `;
-    
-const Image = styled('img') ({
+
+const Image = styled('img')({
     width: 50,
     height: 50,
     objectFit: 'cover',
@@ -32,26 +34,34 @@ const Text = styled(Typography)`
     color: rgba(0, 0, 0, 0.6);
     font-size: 14px;
 `;
-const Conversation = ({user}) => {
-  return (
-    <Component>
-    <Box>
-        <Image src={user.picture} alt="display picture" />
-    </Box>
-    <Box style={{width: '100%'}}>
-        <Container>
-            <Typography>{user.name}</Typography>
-            { 
-                // message?.text && 
-                // <Timestamp>{formatDate(message?.timestamp)}</Timestamp>        
-            }
-        </Container>
-        <Box>
-            {/* <Text>{message?.text?.includes('localhost') ? 'media' : message.text}</Text> */}
-        </Box>
-    </Box>
-</Component>
-  )
+
+const Conversation = ({ user }) => {
+    const { setPerson, account } = useAccountContext();
+
+    const getUser = async () => {
+        setPerson(user)
+        await setConversation({ senderId: account.sub, receiverId: user.sub })
+    }
+
+    return (
+        <Component onClick={() => getUser()}>
+            <Box>
+                <Image src={user.picture} alt="display picture" />
+            </Box>
+            <Box style={{ width: '100%' }}>
+                <Container>
+                    <Typography>{user.name}</Typography>
+                    {
+                        // message?.text && 
+                        // <Timestamp>{formatDate(message?.timestamp)}</Timestamp>        
+                    }
+                </Container>
+                <Box>
+                    {/* <Text>{message?.text?.includes('localhost') ? 'media' : message.text}</Text> */}
+                </Box>
+            </Box>
+        </Component>
+    )
 }
 
 export default Conversation

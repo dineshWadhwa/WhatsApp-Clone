@@ -11,7 +11,7 @@ box-shadow:none;
 `
 const LoginHeader = styled(AppBar)`
 height:220px;
-background-color:#00bfa5;
+background-color:#00A884;
 box-shadow:none;
 `
 const Component = styled(Box)`

@@ -25,8 +25,8 @@ const Icon = styled(Box)`
     height: 100%;
     position: absolute;
 `;
-      
-const InputField = styled(InputBase) `
+
+const InputField = styled(InputBase)`
     width: 100%;
     padding: 16px;
     padding-left: 65px;
@@ -34,16 +34,28 @@ const InputField = styled(InputBase) `
     height: 15px;
     width: 100%;
 `;
+const debounce = (callback, wait) => {
+  let timeoutId = null;
+  return function(...args) {
+    if(timeoutId){
+      window.clearTimeout(timeoutId);
+    }
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args);
+    }, wait);
+  };
+}
 
-const Search = () => {
+const Search = ({ setText }) => {
   return (
     <Component>
       <Wrapper>
         <Icon>
-          <SearchIcon fontSize={'small'}/>
+          <SearchIcon fontSize={'small'} />
         </Icon>
         <InputField
-        placeholder='Search or start a new chat'
+          placeholder='Search or start a new chat'
+          onChange={(e) => debounce((e)=>setText(e.target.value), 1000)(e)}
         />
       </Wrapper>
     </Component>
