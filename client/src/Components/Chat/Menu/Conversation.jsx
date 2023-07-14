@@ -1,6 +1,6 @@
 import { Box, Typography, styled } from '@mui/material';
 import React from 'react'
-import { useAccountContext } from '../../Context/AccountProvider';
+import { useAccountContext } from '../../../Context/AccountProvider';
 import { setConversation } from '../../../service/api';
 
 const Component = styled(Box)`

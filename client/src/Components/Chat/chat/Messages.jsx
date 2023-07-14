@@ -1,16 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { Box, styled } from '@mui/material';
 // import { io } from 'socket.io-client';
-// import { getMessages, newMessages } from '../../../service/api';
-// import Message from './Message';
-import { useAccountContext } from '../../Context/AccountProvider';
+import { useAccountContext } from '../../../Context/AccountProvider';
 import Footer from './Footer';
+import { getMessages, newMessage } from '../../../service/api';
+import Message from './Message';
 
 const Wrapper = styled(Box)`
     background-image: url(${'https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'});
     background-size: 50%;
 `;
-
 const StyledFooter = styled(Box)`
     height: 55px;
     background: #ededed;
@@ -18,14 +17,12 @@ const StyledFooter = styled(Box)`
     width: 100%;
     // bottom: 0
 `;
-
 const Component = styled(Box)`
     height: 81.5vh;
     overflow-y: scroll;
 `;
-
 const Container = styled(Box)`
-    padding: 1px 80px;
+    padding: 3px 50px;
 `;
 
 const Messages = ({ person, conversation }) => {
@@ -49,30 +46,30 @@ const Messages = ({ person, conversation }) => {
   //     })
   // }, []);
 
-  // useEffect(() => {
-  //     const getMessageDetails = async () => {
-  //         let data = await getMessages(conversation?._id);
-  //         setMessages(data);
-  //     }
-  //     getMessageDetails();
-  // }, [conversation?._id, person._id, newMessageFlag]);
-
-  // useEffect(() => {
-  //     scrollRef.current?.scrollIntoView({ transition: "smooth" })
-  // }, [messages]);
+  useEffect(() => {
+    const getMessageDetails = async () => {
+      let data = await getMessages(conversation?._id);
+      setMessages(data);
+    }
+    getMessageDetails();
+  }, [conversation?._id, person._id, newMessageFlag])
 
   useEffect(() => {
-    incomingMessage && conversation?.members?.includes(incomingMessage.senderId) &&
-      setMessages((prev) => [...prev, incomingMessage]);
+    scrollRef.current?.scrollIntoView({ transition: "smooth" })
+  }, [messages]);
 
-  }, [incomingMessage, conversation]);
+  // useEffect(() => {
+  //   incomingMessage && conversation?.members?.includes(incomingMessage.senderId) &&
+  //     setMessages((prev) => [...prev, incomingMessage]);
+
+  // }, [incomingMessage, conversation]);
 
   // const receiverId = conversation?.members?.find(member => member !== account.sub);
 
   const sendText = async (e) => {
     let code = e.keyCode || e.which;
-    if (!value) return;
-
+    if (!value) return
+    
     if (code === 13) {
       let message = {};
       if (!file) {
@@ -84,6 +81,7 @@ const Messages = ({ person, conversation }) => {
           text: value
         };
       } else {
+
         message = {
           senderId: account.sub,
           conversationId: conversation._id,
@@ -92,14 +90,13 @@ const Messages = ({ person, conversation }) => {
           text: image
         };
       }
-
       // socket.current.emit('sendMessage', message);
 
-      // await newMessages(message);
+      await newMessage(message);
 
       setValue('');
       setFile();
-      setImage('');
+      // setImage('');
       setNewMessageFlag(prev => !prev);
     }
   }
@@ -107,20 +104,20 @@ const Messages = ({ person, conversation }) => {
   return (
     <Wrapper>
       <Component>
-        {/* {
-                    messages && messages.map(message => (
-                        <Container ref={scrollRef}>
-                            <Message message={message} />
-                        </Container>
-                    ))
-                } */}
+        {
+          messages && messages?.map((message, index) => (
+            <Container ref={scrollRef} key={index}>
+              <Message message={message} />
+            </Container>
+          ))
+        }
       </Component>
       <Footer
         sendText={sendText}
         value={value}
         setValue={setValue}
-      // setFile={setFile}
-      // file={file}
+        setFile={setFile}
+        file={file}
       // setImage={setImage}
       />
     </Wrapper>

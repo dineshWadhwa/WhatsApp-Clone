@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { useAccountContext } from '../Context/AccountProvider'
+import { useAccountContext } from '../../Context/AccountProvider'
 import styled from '@emotion/styled';
 
 const ImageContainer = styled(Box)`

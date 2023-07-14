@@ -1,10 +1,10 @@
 import React from 'react'
 import { Dialog, Box, styled, Typography, List, ListItem } from '@mui/material'
-import { qrCodeImage } from '../Constants/data'
 import { GoogleLogin } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
-import { useAccountContext } from '../Context/AccountProvider'
+import { useAccountContext } from '../../Context/AccountProvider'
 import { addUser } from '../../service/api'
+import { qrCodeImage } from '../../Constants/data'
 
 const Component = styled(Box)`
 display:flex;

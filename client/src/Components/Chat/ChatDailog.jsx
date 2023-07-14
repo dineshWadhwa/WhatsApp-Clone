@@ -4,7 +4,7 @@ import Menu from './Menu/Menu'
 import EmptyChat from './chat/EmptyChat'
 import styled from '@emotion/styled'
 import ChatBox from './chat/ChatBox'
-import { useAccountContext } from '../Context/AccountProvider'
+import { useAccountContext } from '../../Context/AccountProvider'
 
 const Component = styled(Box)`
 display:flex;

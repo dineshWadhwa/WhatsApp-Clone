@@ -1,7 +1,7 @@
 import { Box, Typography, styled } from '@mui/material';
 import { Search, MoreVert } from '@mui/icons-material';
-import { useAccountContext } from '../../Context/AccountProvider';
-import { emptyProfilePicture } from '../../Constants/data';
+import { useAccountContext } from '../../../Context/AccountProvider';
+import { emptyProfilePicture } from '../../../Constants/data';
 
 const Header = styled(Box)`
     height: 40px;

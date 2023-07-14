@@ -38,24 +38,25 @@ const ClipIcon = styled(AttachFile)`
 
 const Footer = ({ sendText, value, setValue, setFile, file, setImage }) => {
 
-    // useEffect(() => {
-    //     const getImage = async () => {
-    //         if (file) {
-    //             const data = new FormData();
-    //             data.append("name", file.name);
-    //             data.append("file", file);
+    useEffect(() => {
+        const getImage = async () => {
+            if (file) {
+                const data = new FormData();
+                data.append("name", file.name);
+                data.append("file", file);
 
-    //             const response = await uploadFile(data);
-    //             setImage(response.data);
-    //         }
-    //     }
-    //     getImage();
-    // }, [file])
+                // const response = await uploadFile(data);
+                // setImage(response.data);
+                await uploadFile(data)
+            }
+        }
+        getImage();
+    }, [file])
 
-    // const onFileChange = (e) => {
-    //     setValue(e.target.files[0].name);
-    //     setFile(e.target.files[0]);
-    // }
+    const onFileChange = (e) => {
+        setValue(e.target.files[0].name);
+        setFile(e.target.files[0]);
+    }
 
     return (
         <Container>
@@ -67,7 +68,7 @@ const Footer = ({ sendText, value, setValue, setFile, file, setImage }) => {
                 type='file'
                 id="fileInput"
                 style={{ display: 'none' }}
-                // onChange={(e) => onFileChange(e)}
+                onChange={(e) => onFileChange(e)}
             />
 
             <Search>
@@ -75,7 +76,8 @@ const Footer = ({ sendText, value, setValue, setFile, file, setImage }) => {
                     placeholder="Type a message"
                     inputProps={{ 'aria-label': 'search' }}
                     onChange={(e) => setValue(e.target.value)}
-                    onKeyPress={(e) => sendText(e)}
+                    // onKeyPress={(e) => sendText(e)}
+                    onKeyUp={(e) => sendText(e)}
                     value={value}
                 />
             </Search>

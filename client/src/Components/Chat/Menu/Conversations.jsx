@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getUsers } from '../../../service/api'
 import Conversation from './Conversation'
 import { Box, Divider, styled } from '@mui/material';
-import { useAccountContext } from '../../Context/AccountProvider';
+import { useAccountContext } from '../../../Context/AccountProvider';
 
 const Component = styled(Box)`
     overflow: overlay;

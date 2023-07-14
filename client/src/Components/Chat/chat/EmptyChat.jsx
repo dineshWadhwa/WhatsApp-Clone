@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Divider, Typography } from '@mui/material'
-import { emptyChatImage } from '../../Constants/data'
+import { emptyChatImage } from '../../../Constants/data'
 import styled from '@emotion/styled';
 
 const Component = styled(Box)`
