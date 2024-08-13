@@ -5,6 +5,7 @@ import { useAccountContext } from '../../../Context/AccountProvider';
 import Footer from './Footer';
 import { getMessages, newMessage } from '../../../service/api';
 import Message from './Message';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled(Box)`
     background-image: url(${'https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'});
@@ -26,6 +27,7 @@ const Container = styled(Box)`
 `;
 
 const Messages = ({ person, conversation }) => {
+console.log("🚀 ~ Messages ~ conversation:", conversation)
 
   const [messages, setMessages] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(null);
@@ -34,8 +36,10 @@ const Messages = ({ person, conversation }) => {
   const [image, setImage] = useState();
 
   const scrollRef = useRef();
+  const {user : account} = useSelector(_=>_.auth)
 
-  const { account, socket, newMessageFlag, setNewMessageFlag } = useAccountContext();
+  const { newMessageFlag, setNewMessageFlag } = useAccountContext();
+
 
   // useEffect(() => {
   //     socket.current.on('getMessage', data => {

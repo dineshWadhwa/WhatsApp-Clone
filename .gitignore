@@ -3,4 +3,5 @@
 /client/build
 /server/build
 /client/.env
-/server/.env
+.env
+package-lock.json

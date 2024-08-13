@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { useAccountContext } from '../../Context/AccountProvider'
 import styled from '@emotion/styled';
+import { useSelector } from 'react-redux';
 
 const ImageContainer = styled(Box)`
     display: flex;
@@ -38,7 +39,7 @@ const DescriptionContainer = styled(Box)`
     }
 `;
 const Profile = () => {
-  const { account } = useAccountContext();
+  const {user:account} = useSelector(_=>_.auth)
   return (
     <>
       <ImageContainer>

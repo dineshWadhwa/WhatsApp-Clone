@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getUsers } from '../../../service/api'
 import Conversation from './Conversation'
 import { Box, Divider, styled } from '@mui/material';
-import { useAccountContext } from '../../../Context/AccountProvider';
+import { useSelector } from 'react-redux';
 
 const Component = styled(Box)`
     overflow: overlay;
@@ -16,7 +16,7 @@ const StyledDivider = styled(Divider)`
 `;
 const Conversations = ({ text }) => {
   const [users, setUsers] = useState([])
-  const { account } = useAccountContext();
+  const {user:_} = useSelector(_=>_.auth)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +30,7 @@ const Conversations = ({ text }) => {
     <Component>
       {
         users?.map((user, index) => (
-          user.sub !== account.sub && 
+          user.sub !== _.sub && 
           <>
             <Conversation user={user} key={index}/>
             {

@@ -7,7 +7,11 @@ const AccountProvider = ({ children }) => {
   const [person, setPerson] = useState({})
   const [newMessageFlag, setNewMessageFlag] = useState(false)
 
-  const value = useMemo(() => ({ account, setAccount, person, setPerson, newMessageFlag, setNewMessageFlag }), [account, newMessageFlag, person]);
+  const setUserToken = (sub) => {
+    localStorage.setItem('user-token', sub);
+  };
+
+  const value = useMemo(() => ({ account, setAccount, person, setPerson, newMessageFlag, setNewMessageFlag,setUserToken }), [account, newMessageFlag, person]);
   return (
     <AccountContext.Provider
       value={value}

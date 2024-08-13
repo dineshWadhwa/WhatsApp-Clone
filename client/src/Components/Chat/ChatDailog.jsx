@@ -4,7 +4,8 @@ import Menu from './Menu/Menu'
 import EmptyChat from './chat/EmptyChat'
 import styled from '@emotion/styled'
 import ChatBox from './chat/ChatBox'
-import { useAccountContext } from '../../Context/AccountProvider'
+import { useSelector } from 'react-redux'
+import { getObjectLength } from '../../Constants/function'
 
 const Component = styled(Box)`
 display:flex;
@@ -30,7 +31,7 @@ const dailogStyle = {
   overflow: 'hidden'
 }
 const ChatDailog = () => {
-  const { person } = useAccountContext();
+  const {person}=useSelector(_=>_.account)
 
   return (
     <Dialog
@@ -44,7 +45,7 @@ const ChatDailog = () => {
           <Menu />
         </LeftComponent>
         <RightComponent>
-          {Object.keys(person).length ? <ChatBox /> : <EmptyChat />}
+          {getObjectLength(person) ? <ChatBox /> : <EmptyChat />}
         </RightComponent>
       </Component>
     </Dialog>

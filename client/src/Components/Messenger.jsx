@@ -2,7 +2,7 @@ import React from 'react'
 import { AppBar, Box, Toolbar, styled } from '@mui/material'
 import LoginDailog from './Account/LoginDailog'
 import ChatDailog from './Chat/ChatDailog'
-import { useAccountContext } from '../Context/AccountProvider'
+import { useSelector } from 'react-redux'
 
 const Header = styled(AppBar)`
 height:125px;
@@ -19,12 +19,12 @@ height:100vh;
 background-color:#DCDCDC;
 `
 const Messenger = () => {
-  const { account } = useAccountContext()
+  const {user} = useSelector(_=>_.auth)
 
   return (
     <Component>
       {
-        account ?
+        user?.sub ?
           <>
             <Header>
               <Toolbar>

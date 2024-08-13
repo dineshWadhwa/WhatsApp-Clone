@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useAccountContext } from '../../../Context/AccountProvider';
 import ChatHeader from './ChatHeader';
 import Messages from './Messages';
 import { getConversation } from '../../../service/api';
+import { useSelector } from 'react-redux';
 
 const ChatBox = () => {
-  const { account, person } = useAccountContext()
+  const {user:account} = useSelector(_=>_.auth)
+  const {person} = useSelector(_=>_.account)
   const [conversation, setConversation] = useState({});
 
   useEffect(() => {

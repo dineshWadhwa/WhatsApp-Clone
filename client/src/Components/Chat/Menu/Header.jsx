@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useAccountContext } from '../../../Context/AccountProvider';
 import { Box } from '@mui/material';
 import { Chat } from "@mui/icons-material";
 import styled from '@emotion/styled';
 import HeaderMenu from './HeaderMenu';
 import InfoDrawer from '../../Drawer/InfoDrawer';
+import { useSelector } from 'react-redux';
 
 const Component = styled(Box)`
 height: 40px;
@@ -33,12 +33,12 @@ const Image = styled('img')({
 })
 
 const Header = () => {
-  const { account } = useAccountContext();
+  const {user} = useSelector(_=>_.auth)
   const [openDrawer, setOpenDrawer] = useState(false)
   return (
     <>
       <Component>
-        <Image src={account?.picture} alt='profile-pic'onClick={()=>setOpenDrawer(true)} />
+        <Image src={user?.picture} alt='profile-pic'onClick={()=>setOpenDrawer(true)} />
         <Wrapper>
           <Chat />
           <HeaderMenu setOpenDrawer={setOpenDrawer}/>

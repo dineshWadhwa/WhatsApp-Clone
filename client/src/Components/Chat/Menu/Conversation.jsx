@@ -2,6 +2,8 @@ import { Box, Typography, styled } from '@mui/material';
 import React from 'react'
 import { useAccountContext } from '../../../Context/AccountProvider';
 import { setConversation } from '../../../service/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPerson } from '../../../Redux/Slices/accountSlice';
 
 const Component = styled(Box)`
     height: 45px;
@@ -36,10 +38,12 @@ const Text = styled(Typography)`
 `;
 
 const Conversation = ({ user }) => {
-    const { setPerson, account } = useAccountContext();
+    const {user:account}= useSelector(_=>_.auth)
+    const dispatch = useDispatch()
 
     const getUser = async () => {
-        setPerson(user)
+        dispatch(setPerson(user))
+
         await setConversation({ senderId: account.sub, receiverId: user.sub })
     }
 

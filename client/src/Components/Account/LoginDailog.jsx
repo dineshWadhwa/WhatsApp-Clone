@@ -5,6 +5,8 @@ import jwt_decode from 'jwt-decode'
 import { useAccountContext } from '../../Context/AccountProvider'
 import { addUser } from '../../service/api'
 import { qrCodeImage } from '../../Constants/data'
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../Redux/Slices/authSlice'
 
 const Component = styled(Box)`
 display:flex;
@@ -45,11 +47,18 @@ const dailogStyle = {
 }
 
 const LoginDailog = () => {
-  const { setAccount } = useAccountContext();
+  const { setAccount,setUserToken } = useAccountContext();
+const dispatch = useDispatch()
 
   const onLoginSuccess = async (res) => {
     const decodedInfo = jwt_decode(res?.credential)
     setAccount(decodedInfo);
+    dispatch(
+      setUser(decodedInfo)
+    );
+    dispatch(
+      setUser(decodedInfo)
+    );
     await addUser(decodedInfo)
   }
   const onLoginError = (res) => { console.log('Login Failed', res); }

@@ -1,8 +1,8 @@
 import { Box, styled, Typography } from '@mui/material';
 import { GetApp as GetAppIcon } from '@mui/icons-material';
 import { downloadMedia, formatDate } from '../../../utils/common-utils';
-import { useAccountContext } from '../../../Context/AccountProvider';
 import { iconPDF } from '../../../Constants/data';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled(Box)`
     background: #FFFFFF;
@@ -39,12 +39,12 @@ const Time = styled(Typography)`
 `;
 
 const Message = ({ message }) => {
-    const { account } = useAccountContext();
+    const {user} = useSelector(_=>_.auth)
 
     return (
         <>
         {
-            account.sub === message.senderId ? 
+            user.sub === message.senderId ? 
                 <Own>
                     {
                         message.type === 'file' ? <ImageMessage message={message} /> : <TextMessage message={message} />
@@ -63,7 +63,6 @@ const Message = ({ message }) => {
 }
 
 const TextMessage = ({ message }) => {
-    
     return (
         <>
             <Text>{message.text}</Text>
@@ -73,7 +72,6 @@ const TextMessage = ({ message }) => {
 }
 
 const ImageMessage = ({ message }) => {
-
     return (
         <div style={{ position: 'relative' }}>
             {
